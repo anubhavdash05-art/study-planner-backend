@@ -39,6 +39,21 @@ def home():
 
 @app.route("/generate", methods=["POST"])
 def generate():
+    data = request.get_json()
+
+    if not data:
+        return {"error": "No JSON received"}, 400
+
+    topic = data.get("topic")
+
+    if not topic:
+        return {"error": "Missing topic"}, 400
+
+    return {
+        "status": "success",
+        "topic_received": topic
+    }
+def generate():
     data = request.json
 
     result = generate_study_plan(
